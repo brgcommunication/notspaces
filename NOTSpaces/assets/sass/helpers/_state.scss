@@ -1,0 +1,38 @@
+﻿@import '../utilities/utilities';
+
+.is-collapsed {
+    opacity: 0;
+}
+
+.is-hidden {
+    display: none;
+
+    &--mobile {
+        @include mq('tablet-wide', max) {
+            display: none !important;
+        }
+    }
+
+    &--desktop {
+        @include mq('tablet-wide') {
+            display: none !important;
+        }
+    }
+}
+
+.is-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.is-not-scrollable {
+    height: 100%;
+    overflow: hidden;
+}
+
+.is-forbidden {
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    width: 0 !important;
+}

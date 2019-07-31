@@ -1,0 +1,166 @@
+﻿@import 'palette';
+
+/**
+* Palette settings
+*/
+
+$color-primary                  : $azure;
+$color-secondary                : $alto, $gallery;
+$bg-primary                     : $white;
+$bg-secondary                   : $concrete;
+
+
+/**
+* Typography settings
+*/
+
+$font-primary                   : 'Libre Baskerville', serif;
+
+
+$title-color                    : $color-secondary;
+$title-bold-color               : $color-primary;
+$title-font-family              : $font-primary;
+$title-font-size                : (
+                                    'default'       :  (
+                                                        768px   : 24px,
+                                                        1024px  : 33px,
+                                                        1360px  : 42px,
+                                    ),
+);
+$title-letter-spacing           : (
+                                    'default'       :  (
+                                                        768px   : 8px,
+                                                        1024px  : 12px,
+                                                        1360px  : 16px,
+                                    ),
+);
+
+$subtitle-color                 : $color-primary;
+$subtitle-font-family           : $font-primary;
+$subtitle-font-size             : (
+                                    'default'       :  (
+                                                        768px   : 12px,
+                                                        1024px  : 14px,
+                                                        1360px  : 16px,
+                                    ),
+                                    'medium'        :  (
+                                                        768px   : 18px,
+                                                        1024px  : 20px,
+                                                        1360px  : 22px,
+                                    ),
+);
+
+
+
+$paragraph-color                : $dove-gray;
+$paragraph-bold-color           : $color-primary;
+$paragraph-font-family          : $font-primary;
+$paragraph-font-size            : (
+                                   'default'       :  (
+                                                       768px   : 9px,
+                                                       1024px  : 11px,
+                                                       1360px  : 13px,
+                                   ),
+                                   'small'         :   (
+                                                       768px   : 7px,
+                                                       1024px  : 8px,
+                                                       1360px  : 9px,
+                                   ),
+                                   'medium'        :  (
+                                                       768px   : 11px,
+                                                       1024px  : 13px,
+                                                       1360px  : 15px,
+                                   ),
+);
+
+
+
+/**
+* Navbar settings
+*/
+
+$navbar-bg                      : $azure, $chathams-blue;
+$navbar-size                    : (
+                                    'phone'         : (
+                                                        height  : 60px,
+                                                        width   : 100%,
+                                                      ),
+                                    'tablet-wide'   : (
+                                                        height  : 100%,
+                                                        width   : 100px,
+                                                      ),
+                                    'desktop'       : (
+                                                        height  : 100%,
+                                                        width   : 135px,
+                                                      ),
+);
+
+
+/**
+* Menu settings
+*/
+
+$menu-bg                        : $azure, $chathams-dark-blue;
+$menu-item-color                : (
+                                    'default'       : rgba($white, .5),
+                                    'hover'         : $white
+);
+$menu-item-font-family          : $font-primary;
+$menu-item-font-size            : (
+                                    768px   : 12px,
+                                    1024px  : 14px,
+                                    1360px  : 16px,
+);
+
+/**
+* Hamburger settings
+*/
+
+$hamburger-layer-width          : 22px;
+$hamburger-layer-spacing        : 3px;
+$hamburger-layer-color          : $white;
+
+
+
+/**
+* Employees settings
+*/
+
+$employee-figure-color          : $color-primary;
+$employee-figure-font-family    : $font-primary;
+$employee-figure-font-size      : (
+
+                                     768px   : 7px,
+                                     1024px  : 8px,
+                                     1360px  : 9px,
+);
+
+
+
+$employee-name-color             : $dove-gray;
+$employee-name-bold-color        : $color-primary;
+$employee-name-font-family       : $font-primary;
+$employee-name-font-size         : (
+                                     768px   : 9px,
+                                     1024px  : 11px,
+                                     1360px  : 13px,
+);
+
+$employee-letter-color           : $chathams-blue, $chathams-dark-blue;
+$employee-letter-font-family     : $font-primary;
+$employee-letter-font-size       : (
+                                     768px   : 115px,
+                                     1024px  : 230px,
+                                     1360px  : 345px,
+);
+
+
+/**
+* Slider settings
+*/
+
+$slider-caption-font-size       : (
+                                     768px   : 7px,
+                                     1024px  : 8px,
+                                     1360px  : 9px,
+);

@@ -1,0 +1,19 @@
+﻿@import '../utilities/utilities';
+
+.decoration {
+    display: inline-flex;
+
+    &--line {
+        background: $color-primary;
+        height: 2px;
+        width: 1.5rem;
+    }
+
+    &--forwardslash {
+        border-bottom: 20px solid $color-primary;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 2px;
+        @include transform(rotate(15deg));
+    }
+}

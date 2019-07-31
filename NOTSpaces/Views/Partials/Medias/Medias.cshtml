@@ -1,0 +1,42 @@
+﻿@model MediasViewModel
+
+@if (Model != null)
+{
+    if (Model.Medias != null && Model.Medias.Any())
+    {
+        if (Model.Medias.Count() == 1)
+        {
+            var item = Model.Medias.FirstOrDefault();
+            var cssClass = item.DocumentTypeAlias != "Image" ? "multimedia--video" : null;
+
+            <div class="multimedia @cssClass @Model.CssModifiers">
+                <div class="multimedia__source lazyload" data-bgset="@item.GetSrcSet(Model.Width, Model.Height)" @Html.Raw(Model.HtmlAttributes)></div>
+            </div>
+        }
+        else
+        {
+            <div class="slider @(!string.IsNullOrEmpty(Model.SliderConfig.CssModifiers) ? Model.SliderConfig.CssModifiers : null)" data-slider>
+
+                @foreach (var item in Model.Medias.Select((value, i) => new { i, value }))
+                {
+
+                    if (item != null)
+                    {
+                        <div class="slider__slide">
+                            <div class="multimedia @Model.CssModifiers">
+                                <div class="multimedia__source lazyload" data-bgset="@item.value.GetSrcSet(Model.Width, Model.Height)" @Html.Raw(Model.HtmlAttributes)></div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(Model.SliderConfig.SlideCounterLabel))
+                            {
+                                <div class="slider__counter">@string.Format(Model.SliderConfig.SlideCounterLabel, (item.i + 1), Model.Medias.Count)</div>
+                            }
+
+                        </div>
+                    }
+                }
+
+            </div>
+        }
+    }
+}

@@ -1,0 +1,99 @@
+﻿@import '../utilities/utilities';
+
+.margin {
+    &--top-xs {
+        margin-top: .5rem;
+    }
+
+    &--top-sm {
+        margin-top: 1rem;
+    }
+
+    &--top-md {
+        margin-top: 2rem;
+    }
+
+    &--top-lg {
+        margin-top: 4rem;
+    }
+
+    &--top-xl {
+        margin-top: 6rem;
+    }
+
+    &--top-xxl {
+        margin-top: 8rem;
+    }
+
+    &--right-xs {
+        margin-right: .5rem;
+    }
+
+    &--right-sm {
+        margin-right: 1rem;
+    }
+
+    &--right-md {
+        margin-right: 2rem;
+    }
+
+    &--right-lg {
+        margin-right: 4rem;
+    }
+}
+
+.padding {
+    &--centered-xs {
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
+
+    &--centered-sm {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    &--centered-md {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    &--centered-lg {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+    &--centered-xl {
+        padding-left: 6rem;
+        padding-right: 6rem;
+    }
+
+    &--centered-xxl {
+        padding-left: 8rem;
+        padding-right: 8rem;
+    }
+}
+
+.pulled {
+    &--left {
+        align-self: flex-start;
+        text-align: left;
+    }
+
+    &--center {
+        align-self: center;
+        text-align: center;
+    }
+
+    &--center-md {
+        @include mq('tablet-wide', max) {
+            align-self: center !important;
+            text-align: center;
+        }
+    }
+
+    &--right {
+        align-self: flex-end;
+        text-align: right;
+    }
+}

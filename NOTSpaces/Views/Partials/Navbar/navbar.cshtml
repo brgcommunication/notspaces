@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Umbraco.Web;
+
+<header class="navbar" data-navbar>
+    <a class="logo logo--type" href="/">
+        @Html.InlineSvg("--logotype", "logo__image")
+    </a>
+    <nav class="navbar__navigation menu">
+        <a class="menu__item menu__item--link" href="#weare" data-anchor>We are</a>
+        <a class="menu__item menu__item--link margin--top-lg" href="#wedo" data-anchor>We do</a>
+        <a class="menu__item menu__item--link margin--top-lg" href="#contract" data-anchor>Contract</a>
+        <a class="menu__item menu__item--link margin--top-lg" href="#contacts" data-anchor>Contatti</a>
+    </nav>
+    <button class="navbar__navigation-toggle hamburger hamburger--slider" type="button">
+        <span class="hamburger__box">
+            <span class="hamburger__inner"></span>
+        </span>
+    </button>
+</header>

@@ -1,0 +1,122 @@
+@import '../utilities/utilities';
+
+.title {
+    @include poly-fluid-sizing('font-size', map-get($title-font-size, 'default'));
+    @include poly-fluid-sizing('letter-spacing', map-get($title-letter-spacing, 'default'));
+    @include typography($family: $title-font-family, $weight: 400, $line-height: 1);
+
+    &--bold {
+        font-weight: 700;
+    }
+
+    &--gradient {
+        display: inline-block;
+        mix-blend-mode: multiply;
+        padding: 0 10px;
+        position: relative;
+
+        &:after {
+            height: 100%;
+            mix-blend-mode: screen;
+            top: 0;
+            width: 99%;
+            @include centerer($vertical: false);
+            @include pseudo();
+            @include text-gradient(to right, $title-color);
+        }
+    }
+}
+
+.subtitle {
+    @include poly-fluid-sizing('font-size', map-get($subtitle-font-size, 'default'));
+    @include typography($subtitle-color, $subtitle-font-family, 400, 2.5);
+
+    &--medium {
+        @include poly-fluid-sizing('font-size', map-get($subtitle-font-size, 'medium'));
+    }
+
+    &--bold {
+        font-weight: 700;
+    }
+}
+
+.paragraph {
+    @include poly-fluid-sizing('font-size', map-get($paragraph-font-size, 'default'));
+    @include typography($paragraph-color, $paragraph-font-family, 400, 2);
+
+    &--small {
+        line-height: 1.5;
+        @include poly-fluid-sizing('font-size', map-get($paragraph-font-size, 'small'));
+    }
+
+    &--medium {
+        line-height: 2.5;
+        @include poly-fluid-sizing('font-size', map-get($paragraph-font-size, 'medium'));
+    }
+
+    &--newspaper {
+        text-align: justify;
+    }
+
+    strong {
+        color: $paragraph-bold-color;
+        font-weight: 600;
+    }
+
+    a {
+        color: $paragraph-bold-color;
+        font-weight: 600;
+        @include transition(color .3s ease-out);
+
+        &:hover {
+            color: $paragraph-color;
+        }
+    }
+
+    @include mq('tablet-wide') {
+        &--newspaper {
+            @include vendor(column-count, 2);
+            @include vendor(column-gap, 50px);
+        }
+    }
+}
+
+.text {
+    &--letters-spaced {
+        letter-spacing: 1px;
+    }
+
+    &--strikethrough {
+        margin-bottom: 22px;
+        margin-top: 12px;
+
+        &:before {
+            border-top: 8px solid $color-primary;
+            border-bottom: 22px solid $color-primary;
+            content: '';
+            height: 120%;
+            left: 50%;
+            position: absolute;
+            top: -12px;
+            width: 1.2px;
+            @include transform (rotate(15deg));
+        }
+
+        @include mq('tablet-wide') {
+            margin-bottom: 36px;
+            margin-top: 25px;
+
+            &:before {
+                border-top: 18px solid $color-primary;
+                border-bottom: 36px solid $color-primary;
+                top: -25px;
+                width: 2px;
+            }
+        }
+    }
+
+    &--inline {
+        align-items: center;
+        display: flex;
+    }
+}

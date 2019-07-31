@@ -1,0 +1,17 @@
+﻿@model HomePage
+
+    <footer id="contacts" class="footer">
+        <div class="footer__layer">
+            <iframe class="map lazyload" data-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11462.21959830791!2d12.396355!3d44.092541!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3d50f3c90f6ba504!2sNOT+identit%C3%A0+degli+spazi!5e0!3m2!1sen!2sit!4v1564496733073!5m2!1sen!2sit" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="footer__layer margin--top-md">
+            <a class="logo logo--mark" href="/">
+                @Html.InlineSvg("--logomark", "logo__image")
+            </a>
+            <div class="paragraph paragraph--small padding--centered-md">
+                <p class="text--letters-spaced margin--top-xs">@(Model.CompanyName.ToUpper()) - @(Model.PIva.ToUpper())</p>
+                <p class="text--letters-spaced margin--top-xs">@(Model.Address.ToUpper())</p>
+                <p class="margin--top-xs"><a href="tel:@(Model.PhoneNumber)">@(Model.PhoneNumber.ToUpper())</a> - <a href="mailto:@(Model.EMailAddress.ToUpper())">@(Model.EMailAddress.ToUpper())</a></p>
+            </div>
+        </div>
+    </footer>

@@ -1,0 +1,13 @@
+@import '../utilities/utilities';
+
+.section {
+    position: relative;
+
+    &__caption {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        position: relative;
+    }
+}

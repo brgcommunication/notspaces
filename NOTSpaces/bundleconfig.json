@@ -1,0 +1,82 @@
+[
+  {
+    "outputFileName": "scripts/headScripts.js",
+    "inputFiles": [
+      "assets/scripts/base/localFontLoader.js",
+      "assets/scripts/base/spritesLoader.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "scripts/init.js",
+    "inputFiles": [
+      "assets/scripts/base/assetsLoader.js",
+      "assets/scripts/init.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "assets/scripts/modules/modules.js",
+    "inputFiles": [
+      "assets/scripts/modules/loader.js",
+      "assets/scripts/modules/hamburger.js",
+      "assets/scripts/modules/navbar.js",
+      "assets/scripts/modules/portlet.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "scripts/main.js",
+    "inputFiles": [
+      "assets/vendor/jquery/jquery-3.3.1.min.js",
+      "assets/vendor/lazysizes/fix-ios-sizes.min.js",
+      "assets/vendor/lazysizes/lazysizes.min.js",
+      "assets/vendor/lazysizes/ls.bgset.min.js",
+      "assets/vendor/lazysizes/ls.parent-fit.min.js",
+      "assets/vendor/lazysizes/ls.unveilhooks.min.js",
+      "assets/vendor/lazysizes/ls.respimg.min.js",
+      "assets/vendor/gsap/TweenMax.min.js",
+      "assets/vendor/gsap/ScrollMagic.min.js",
+      "assets/vendor/gsap/animation.gsap.min.js",
+      "assets/vendor/slick/slick.min.js",
+      "assets/scripts/utilities/variables.js",
+      "assets/scripts/utilities/functions.js",
+      "assets/scripts/utilities/eventHandlers.js",
+      "assets/scripts/modules/modules.js",
+      "assets/scripts/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "css/woff.min.css",
+    "inputFiles": [
+      "assets/fonts/woff.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "css/woff2.min.css",
+    "inputFiles": [
+      "assets/fonts/woff2.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  }
+]

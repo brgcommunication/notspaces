@@ -1,0 +1,35 @@
+﻿@import '../utilities/utilities';
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    height: map-get(map-get($navbar-size, 'phone'), height);
+    justify-content: space-between;
+    padding-right: 15px;
+    width: map-get(map-get($navbar-size, 'phone'), width);
+    @include linear-gradient(to right, $navbar-bg);
+    @include position(fixed, 0, 0, null, 0);
+    @include z-index('navbar');
+
+    @include mq('tablet-wide') {
+        height: map-get(map-get($navbar-size, 'tablet-wide'), height);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-right: 0;
+        width: map-get(map-get($navbar-size, 'tablet-wide'), width);
+        @include position(fixed, 0, null, 0, 0);
+
+        .hamburger {
+            margin-top: 10px;
+        }
+    }
+
+    @include mq('desktop') {
+        height: map-get(map-get($navbar-size, 'desktop'), height);
+        width: map-get(map-get($navbar-size, 'desktop'), width);
+
+        .hamburger {
+            margin-top: 15px;
+        }
+    }
+}

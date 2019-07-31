@@ -1,0 +1,23 @@
+﻿@import '../utilities/utilities';
+
+.background {
+    &--primary {
+        background-color: $bg-primary;
+    }
+
+    &--secondary {
+        background-color: $bg-secondary;
+    }
+
+    &--image {
+        display: block;
+        height: 90%;
+        @include position(absolute, $top: 20%, $right: -1rem);
+        @include transform(translate(0, -50%));
+        @include z-index('below-content');
+
+        @include mq('tablet-wide') {
+            top: 50%;
+        }
+    }
+}

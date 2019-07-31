@@ -1,0 +1,17 @@
+@import '../utilities/utilities';
+
+.hero {
+    position: relative;
+
+    &--fullheight {
+        height: 100vh;
+    }
+
+    &--large {
+        height: 80vh;
+    }
+
+    &__body {
+        text-align: center;
+    }
+}

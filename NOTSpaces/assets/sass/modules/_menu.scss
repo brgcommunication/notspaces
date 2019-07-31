@@ -1,0 +1,64 @@
+﻿@import '../utilities/utilities';
+
+.menu {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+    @include linear-gradient(to right, $menu-bg);
+    @include position(fixed, -100%, 0, 0, 0);
+    @include transition(transform .4s ease-out);
+    @include z-index('below-content');
+
+    &.is-active {
+        @include transform(translate(0, 100%));
+
+        .menu__item {
+            @include fade-in();
+            @include transition(opacity .35s ease-out .4s, visibility .35s ease-out .4s, color .3s ease-out)
+        }
+    }
+
+    &__item {
+        position: relative;
+        @include fade-out();
+        @include transition(opacity .1s ease-out .35s, visibility .1s ease-out .35s, color .3s ease-out);
+
+        &--link {
+            @include poly-fluid-sizing('font-size', $menu-item-font-size);
+            @include typography(map-get($menu-item-color, 'default'), $menu-item-font-family, 400, 1);
+
+            &:hover {
+                color: map-get($menu-item-color, 'hover');
+
+                &:before {
+                    @include fade-in();
+                }
+            }
+
+            &:before {
+                border-top: 10px solid white;
+                border-bottom: 26px solid white;
+                height: 140%;
+                left: 50%;
+                top: -14px;
+                width: 1px;
+                @include fade-out();
+                @include pseudo();
+                @include transform(rotate(15deg));
+                @include transition(opacity .3s ease-out, visibility .3s ease-out);
+            }
+        }
+    }
+
+    @include mq('tablet-wide') {
+        left: -100%;
+        top: 0;
+
+        &.is-active {
+            @include transform(translate(100%, 0));
+        }
+    }
+}

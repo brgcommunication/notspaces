@@ -1,0 +1,15 @@
+﻿@import '../utilities/utilities';
+
+
+.content {
+    padding-top: map-get(map-get($navbar-size, 'phone'), height);
+
+    @include mq('tablet-wide') {
+        padding-left: map-get(map-get($navbar-size, 'tablet-wide'), width);
+        padding-top: 0;
+    }
+
+    @include mq('desktop') {
+        padding-left: map-get(map-get($navbar-size, 'desktop'), width);
+    }
+}

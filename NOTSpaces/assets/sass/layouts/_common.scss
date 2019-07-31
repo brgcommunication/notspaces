@@ -1,0 +1,9 @@
+﻿@import '../utilities/utilities';
+
+html {
+    font-size: 60%;
+
+    @include mq('tablet-wide') {
+        font-size: 100%;
+    }
+}

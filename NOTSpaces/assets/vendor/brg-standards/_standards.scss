@@ -1,0 +1,37 @@
+body {
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+img[src=''],
+img:not([src]) {
+    opacity: 0;
+}
+
+[data-scrollmagic],
+[data-scrollmagic-ajax],
+[data-scrollmagic-slider] {
+    opacity: 0;
+    @include transform(matrix(1, 0, 0, 1, 0, 75));
+}
+
+[data-scrollmagic-ltr] {
+    @include transform(matrix(1, 0, 0, 1, -50, 0));
+}
+
+[data-scrollmagic-rtl] {
+    @include transform(matrix(1, 0, 0, 1, 50, 0));
+}
+
+.lazyload,
+.lazyloading {
+    opacity: 0;
+}
+
+.lazyloaded {
+    opacity: 1;
+    @include transition(opacity .3s);
+}

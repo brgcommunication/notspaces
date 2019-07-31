@@ -1,0 +1,144 @@
+﻿@import '../utilities/utilities';
+
+.page {
+    &--home {
+        .hero {
+            .col {
+                height: 50%;
+                position: relative;
+
+                &:last-child {
+                    @include z-index('inside-content');
+                }
+            }
+
+            @include mq('tablet-wide') {
+                .col {
+                    height: auto;
+                }
+            }
+        }
+
+        .employees {
+            &__mvp {
+                position: relative;
+
+                &--niemantsetienne {
+                    padding: 0% 25% 0 5%;
+
+                    .employees__letter {
+                        left: -20px;
+                    }
+                }
+
+                &--orlandiluca {
+                    padding: 10% 5% 0 25%;
+
+                    .employees__letter {
+                        left: 60%;
+                        @include transform(translate(-50%, 0));
+                    }
+                }
+
+                &--turronicorrado {
+                    padding: 10% 25% 0 5%;
+
+                    .employees__letter {
+                        right: 38px;
+                    }
+                }
+            }
+
+            &__professional-figure {
+                @include poly-fluid-sizing('font-size', $employee-figure-font-size);
+                @include typography($employee-figure-color, $employee-figure-font-family, 700, 2.5);
+            }
+
+            &__name {
+                @include poly-fluid-sizing('font-size', $employee-name-font-size);
+                @include typography($employee-name-color, $employee-name-font-family, 400, 2.5);
+
+                &:first-letter {
+                    color: $employee-name-bold-color;
+                    font-weight: 700;
+                }
+            }
+
+            &__letter {
+                display: inline-block;
+                mix-blend-mode: multiply;
+                @include fade-out();
+                @include poly-fluid-sizing('font-size', $employee-letter-font-size);
+                @include position(absolute);
+                @include typography($family: $employee-letter-font-family, $weight: 400, $line-height: 1);
+                @include transition(opacity .6s ease-out, visibility .6s ease-out);
+
+                &:after {
+                    height: 100%;
+                    mix-blend-mode: screen;
+                    top: 0;
+                    width: 98%;
+                    @include centerer($vertical: false);
+                    @include pseudo();
+                    @include text-gradient(to right, $employee-letter-color );
+                }
+            }
+
+            .multimedia {
+                &__caption {
+                    position: relative;
+                }
+            }
+
+            @include mq('tablet') {
+                &__mvp {
+                    &--niemantsetienne {
+                        padding: 0 2.5% 0;
+
+                        .employees__letter {
+                            left: -30px;
+                        }
+                    }
+
+                    &--orlandiluca {
+                        padding: 5% 2.5% 0;
+
+                        .employees__letter {
+                            top: 250px;
+                            @include centerer($vertical: false);
+                        }
+                    }
+
+                    &--turronicorrado {
+                        padding: 0 2.5% 0;
+
+                        .employees__letter {
+                            right: -25px;
+                        }
+                    }
+                }
+            }
+
+            @include mq('tablet-wide') {
+                &__mvp {
+                    &--niemantsetienne {
+                        .employees__letter {
+                            left: -125px;
+                        }
+                    }
+
+                    &--orlandiluca {
+                        .employees__letter {
+                        }
+                    }
+
+                    &--turronicorrado {
+                        .employees__letter {
+                            right: -105px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

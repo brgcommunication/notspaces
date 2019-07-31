@@ -1,0 +1,167 @@
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+
+    @return $number;
+}
+
+/// Convert angle
+/// @author Chris Eppstein
+/// @param {Number} $value - Value to convert
+/// @param {String} $unit - Unit to convert to
+/// @return {Number} Converted angle
+@function convert-angle($value, $unit) {
+    $convertable-units: deg grad turn rad;
+    $conversion-factors: 1 (10grad/9deg) (1turn/360deg) (3.1415926rad/180deg);
+
+    @if index($convertable-units, unit($value)) and index($convertable-units, $unit) {
+        @return $value / nth($conversion-factors, index($convertable-units, unit($value))) * nth($conversion-factors, index($convertable-units, $unit));
+    }
+
+    @warn "Cannot convert `#{unit($value)}` to `#{$unit}`.";
+}
+
+/// Test if `$value` is an angle
+/// @param {*} $value - Value to test
+/// @return {Bool}
+@function is-direction($value) {
+    $is-direction: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value);
+    $is-angle: type-of($value) == 'number' and index('deg' 'grad' 'turn' 'rad', unit($value));
+
+    @return $is-direction or $is-angle;
+}
+
+/// Convert a direction to legacy syntax
+/// @param {Keyword | Angle} $value - Value to convert
+/// @require {function} is-direction
+/// @require {function} convert-angle
+@function legacy-direction($value) {
+    @if is-direction($value) == false {
+        @warn "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be an angle or a direction";
+    }
+
+    $conversion-map: ( to top : bottom, to top right : bottom left, to right top : left bottom, to right : left, to bottom right : top left, to right bottom : left top, to bottom : top, to bottom left : top right, to left bottom : right top, to left : right, to left top : right bottom, to top left : bottom right );
+
+    @if map-has-key($conversion-map, $value) {
+        @return map-get($conversion-map, $value);
+    }
+
+    @return 90deg - convert-angle($value, 'deg');
+}
+
+
+
+
+@function encodecolor($string) {
+    @if type-of($string) == 'color' {
+        $hex: str-slice(ie-hex-str($string), 4);
+        $string: unquote("#{$hex}");
+    }
+
+    $string: '%23' + $string;
+    @return $string;
+}
+
+@function _buildIcon($set-name, $icon) {
+    $icon-set: (icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70">#{$icon}</svg>', social: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62.36" height="62.36">#{$icon}</svg>', );
+    @return map-get($icon-set, $set-name);
+}
+
+@function icon($set-name, $icon-name, $color, $stroke-color: transparent, $stroke-width: 0, $css: '') {
+    $icons: ( facebook: '<path fill="#{encodecolor($color)}" stroke="#{$stroke-color}" stroke-width="#{$stroke-width}" style="#{$css}" d="M40.5,24.2h-6.3V20c0-1.6,1-1.9,1.8-1.9c0.7,0,4.5,0,4.5,0v-6.9h-6.2c-6.9,0-8.5,5.1-8.5,8.4v4.6h-3.9v7h3.9 c0,9.1,0,20,0,20h8.3c0,0,0-11,0-20h5.6L40.5,24.2z"/>', twitter: '<path fill="#{encodecolor($color)}" stroke="#{$stroke-color}" stroke-width="#{$stroke-width}" style="#{$css}" d="M56.9,18.4c-1.8,0.8-3.8,1.3-5.8,1.6c2.1-1.2,3.7-3.2,4.4-5.6c-2,1.2-4.1,2-6.4,2.5c-1.8-2-4.5-3.2-7.4-3.2 c-5.6,0-10.1,4.5-10.1,10.1c0,0.8,0.1,1.6,0.3,2.3c-8.4-0.4-15.8-4.4-20.8-10.6c-0.9,1.5-1.4,3.2-1.4,5.1c0,3.5,1.8,6.6,4.5,8.4 c-1.7-0.1-3.2-0.5-4.6-1.3c0,0,0,0.1,0,0.1c0,4.9,3.5,9,8.1,9.9c-0.8,0.2-1.7,0.4-2.7,0.4c-0.7,0-1.3-0.1-1.9-0.2c1.3,4,5,6.9,9.4,7 c-3.5,2.7-7.8,4.3-12.6,4.3c-0.8,0-1.6,0-2.4-0.1c4.5,2.9,9.8,4.5,15.5,4.5c18.6,0,28.8-15.4,28.8-28.8c0-0.4,0-0.9,0-1.3 C53.8,22.2,55.6,20.4,56.9,18.4z"/>', instagram: '<path fill="#{encodecolor($color)}" stroke="#{$stroke-color}" stroke-width="#{$stroke-width}" style="#{$css}" d="M31.2,20.8c-5.7,0-10.3,4.6-10.3,10.3s4.6,10.4,10.3,10.4s10.3-4.7,10.3-10.3S36.9,20.8,31.2,20.8z M31.2,37.8 c-3.6,0-6.6-3-6.6-6.6s3-6.6,6.6-6.6s6.6,3,6.6,6.6S34.9,37.8,31.2,37.8z"/><circle fill="#{encodecolor($color)}" cx="42" cy="20.6" r="2.3"/><path fill="#{encodecolor($color)}" stroke="#{$stroke-color}" stroke-width="#{$stroke-width}" style="#{$css}" d="M48,14.5c-2.1-2.2-5.1-3.3-8.5-3.3H22.9c-7,0-11.7,4.7-11.7,11.7v16.5c0,3.5,1.1,6.5,3.4,8.6c2.2,2.2,5.1,3.2,8.4,3.2h16.5 c3.5,0,6.4-1.1,8.5-3.1c2.2-2.1,3.3-5.1,3.3-8.6V22.9C51.2,19.5,50.1,16.6,48,14.5z M47.5,39.5c0,2.5-0.7,4.5-2.2,5.9 s-3.5,2.1-5.9,2.1H23c-2.4,0-4.4-0.7-5.9-2.1c-1.5-1.5-2.2-3.5-2.2-6V22.9c0-2.4,0.7-4.4,2.2-5.9c1.4-1.4,3.5-2.1,5.9-2.1h16.6 c2.4,0,4.4,0.7,5.9,2.2c1.4,1.5,2.2,3.5,2.2,5.8"/>', googleplus: '<path fill="#{encodecolor($color)}" stroke="#{$stroke-color}" stroke-width="#{$stroke-width}" style="#{$css}" d="M20.4,28.5c0,2.1,0,4.3,0,6.4C24,35,27.6,35,31.1,35c-1.6,7.9-12.4,10.5-18.1,5.3c-5.9-4.5-5.6-14.5,0.5-18.7 c4.3-3.4,10.3-2.6,14.6,0.4c1.7-1.5,3.2-3.2,4.8-4.9c-3.5-2.9-7.8-4.9-12.5-4.7c-9.6-0.3-18.5,8.2-18.7,17.8 c-0.6,7.9,4.6,15.6,12,18.4c7.3,2.8,16.7,0.9,21.3-5.7c3.1-4.1,3.7-9.5,3.4-14.5C32.4,28.4,26.4,28.4,20.4,28.5z"/><path fill="#{encodecolor($color)}" stroke="#{$stroke-color}" stroke-width="#{$stroke-width}" style="#{$css}" d="M55.4,28.4c0-1.8,0-3.6,0-5.4c-1.8,0-3.6,0-5.3,0c0,1.8,0,3.6,0,5.4c-1.8,0-3.6,0-5.4,0c0,1.8,0,3.6,0,5.3 c1.8,0,3.6,0,5.4,0.1c0,1.8,0,3.6,0,5.3c1.8,0,3.6,0,5.3,0c0-1.8,0-3.6,0-5.4c1.8,0,3.6,0,5.4,0c0-1.8,0-3.6,0-5.3 C58.9,28.5,57.2,28.5,55.4,28.4z"/>', likes: '<path fill="#{encodecolor($color)}" stroke="#{$stroke-color}" stroke-width="#{$stroke-width}" style="#{$css}" d="M38.8,17.2c-3.4,0-6.3,2.7-7.6,5.6c-1.3-2.9-4.2-5.6-7.6-5.6c-4.6,0-8.4,3.8-8.4,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C47.2,20.9,43.4,17.2,38.8,17.2z"/>' ); 
+    $icon: _buildIcon($set-name, map-get($icons, $icon-name));
+    @return url('data:image/svg+xml;utf-8,#{$icon}');
+}
+
+
+
+/// linear-interpolation
+/// Calculate the definition of a line between two points
+/// @param $map - A SASS map of viewport widths and size value pairs
+/// @returns A linear equation as a calc() function
+/// @example
+///   font-size: linear-interpolation((320px: 18px, 768px: 26px));
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function linear-interpolation($map) {
+    $keys: map-keys($map);
+
+    @if (length($keys) != 2) {
+        @warn "linear-interpolation() $map must be exactly 2 values";
+    }
+    // The slope
+    $m: (map-get($map, nth($keys, 2)) - map-get($map, nth($keys, 1)))/(nth($keys, 2) - nth($keys,1));
+
+    // The y-intercept
+    $b: map-get($map, nth($keys, 1)) - $m * nth($keys, 1);
+
+    // Determine if the sign should be positive or negative
+    $sign: "+";
+
+    @if ($b < 0) {
+        $sign: "-";
+        $b: abs($b);
+    }
+
+    @return calc(#{$m*100}vw #{$sign} #{$b});
+}
+
+/// map-sort
+/// Sort map by keys
+/// @param $map - A SASS map
+/// @returns A SASS map sorted by keys
+/// @requires function list-sort
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function map-sort($map) {
+    $keys: list-sort(map-keys($map));
+    $sortedMap: ();
+
+    @each $key in $keys {
+        $sortedMap: map-merge($sortedMap, ($key: map-get($map, $key)));
+    }
+
+    @return $sortedMap;
+}
+
+/// list-sort
+/// Sort a SASS list
+/// @param $list - A SASS list
+/// @returns A sorted SASS list
+/// @requires function list-remove
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function list-sort($list) {
+    $sortedlist: ();
+
+    @while length($list) > 0 {
+        $value: nth($list,1);
+
+        @each $item in $list {
+            @if $item < $value {
+                $value: $item;
+            }
+        }
+
+        $sortedlist: append($sortedlist, $value, 'space');
+        $list: list-remove($list, index($list, $value));
+    }
+
+    @return $sortedlist;
+}
+
+/// list-remove
+/// Remove an item from a list
+/// @param $list - A SASS list
+/// @param $index - The list index to remove
+/// @returns A SASS list
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function list-remove($list, $index) {
+    $newList: ();
+
+    @for $i from 1 through length($list) {
+        @if $i != $index {
+            $newList: append($newList, nth($list,$i), 'space');
+        }
+    }
+
+    @return $newList;
+}

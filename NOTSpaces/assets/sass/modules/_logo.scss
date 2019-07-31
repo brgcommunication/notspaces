@@ -1,0 +1,26 @@
+﻿@import '../utilities/utilities';
+
+.logo {
+    display: block;
+    position: relative;
+
+    &--type {
+        height: 100%;
+    }
+
+    &--mark {
+        height: 50px;
+    }
+
+    &__image {
+        height: 100%;
+        width: 100%;
+    }
+
+    @include mq('tablet-wide') {
+        &--type {
+            height: auto;
+            width: 100%;
+        }
+    }
+}

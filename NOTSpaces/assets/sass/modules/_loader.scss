@@ -1,0 +1,53 @@
+@import '../utilities/utilities';
+
+.loader {
+    align-items: center;
+    background-color: $bg-primary;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+    width: 100vw;
+    @include position(fixed, 0, 0, 0, 0);
+    @include z-index(loader);
+
+    &.is-loading {
+        &:before {
+            @include transform(translate(0,0) translateZ(0));
+        }
+    }
+
+    &.is-loaded {
+        @include fade-out();
+        @include transition(all .3s cubic-bezier(.785,.135,.15,.86) 1.9s);
+
+        &:before {
+            @include transform(translate(100%,0) translateZ(0));
+            @include transition(all .5s cubic-bezier(.785,.135,.15,.86) 1.3s);
+        }
+    }
+
+    &.is-disabled {
+        @include fade-out();
+        @include transition(all .1s ease-out);
+    }
+
+    &:before {
+        background-color: $bg-secondary;
+        content: '';
+        height: 100vh;
+        width: 105vw;
+        @include position(fixed, 0, 0, 0, 0);
+        @include transform(translate(-100%,0) translateZ(0));
+        @include transition(transform .5s cubic-bezier(.785,.135,.15,.86) .5s);
+        @include z-index('below-content');
+    }
+
+    &__logo {
+        align-items: center;
+        display: flex;
+        height: 80px;
+        justify-content: center;
+        @include z-index('inside-content');
+    }
+}

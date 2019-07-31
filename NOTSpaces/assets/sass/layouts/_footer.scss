@@ -1,0 +1,17 @@
+﻿@import '../utilities/utilities';
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    padding-top: 6rem;
+    position: relative;
+
+    &__layer {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+}

@@ -1,0 +1,11 @@
+﻿[
+  {
+    "outputFile": "assets/sass/site.css",
+    "inputFile": "assets/sass/site.scss",
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  }
+
+]

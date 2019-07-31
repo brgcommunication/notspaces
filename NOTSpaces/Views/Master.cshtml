@@ -1,0 +1,44 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var config = Model.Content.Site() as HomePage;
+    var settings = new AppSettings("/css/" + Umbraco.Field("pageType") + "/main.min.css", "/scripts/main.min.js", new Fontset("/css/woff.min.css", "/css/woff2.min.css"), new Sprites("/assets/images/sprites/sprites.svg"), config.Location.ToString());
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>@Umbraco.Field("pageTitle")</title>
+    <link rel="icon" href="/--favicon.ico" />
+    <style type="text/css">
+        @Html.InlineContent(Url.Content("~/css/" + Umbraco.Field("pageType") + "/abovethefold.min.css"))
+    </style>
+    <script type="text/javascript">
+        @Html.InlineContent(Url.Content("~/scripts/headScripts.min.js"))
+        loadFont('bundle', '@settings.Fonts.Woff', '@settings.Fonts.Woff2');
+        loadSVGs('@settings.Sprites.Data', '@settings.Sprites.Revision');
+    </script>
+</head>
+<body>
+    <div class="loader" data-loader>
+        @Html.InlineSvg("--loader", "loader__logo")
+    </div>
+    @Html.Partial("~/views/partials/navbar/navbar.cshtml")
+    <main class="content">
+        @RenderBody()
+
+        @Html.Partial("~/views/partials/footer/footer.cshtml", config)
+    </main>
+    <div id="forbidden" class="is-forbidden"></div>
+    <script type="text/javascript">
+        @Html.InlineContent(Url.Content("~/scripts/init.min.js"));
+        var settings = @Html.Raw(Json.Encode(settings));
+        loadCSS(settings.Stylesheet);
+        loadJS(settings.JavaScript);
+    </script>
+</body>
+</html>
+
