@@ -1035,13 +1035,13 @@
                         }
                     }
                 }
-                // If we have a scheduled publish date change the default button to 
+                // If we have a scheduled publish or unpublish date change the default button to 
                 // "save" and update the label to "save and schedule
-                if (args.content.releaseDate) {
+                if (args.content.releaseDate || args.content.removeDate) {
                     // if save button is alread the default don't change it just update the label
                     if (buttons.defaultButton && buttons.defaultButton.letter === 'A') {
                         buttons.defaultButton.labelKey = 'buttons_saveAndSchedule';
-                        return buttons;
+                        return;
                     }
                     if (buttons.defaultButton && buttons.subButtons && buttons.subButtons.length > 0) {
                         // save a copy of the default so we can push it to the sub buttons later
@@ -1710,6 +1710,13 @@
                     }
                 }
                 return crop;
+            },
+            centerInsideViewPort: function (img, viewport) {
+                var left = viewport.width / 2 - img.width / 2, top = viewport.height / 2 - img.height / 2;
+                return {
+                    left: left,
+                    top: top
+                };
             },
             alignToCoordinates: function (image, center, viewport) {
                 var min_left = image.width - viewport.width;
@@ -5008,7 +5015,6 @@
         var mainTreeEventHandler = null;
         //tracks the user profile dialog
         var userDialog = null;
-        var syncTreePromise;
         function setMode(mode) {
             switch (mode) {
             case 'tree':
@@ -5053,7 +5059,6 @@
                 appState.setSectionState('showSearchResults', false);
                 appState.setGlobalState('stickyNavigation', false);
                 appState.setGlobalState('showTray', false);
-                appState.setMenuState('currentNode', null);
                 if (appState.getGlobalState('isTablet') === true) {
                     appState.setGlobalState('showNavigation', false);
                 }
@@ -5138,11 +5143,6 @@
                 //when a tree is loaded into a section, we need to put it into appState
                 mainTreeEventHandler.bind('treeLoaded', function (ev, args) {
                     appState.setTreeState('currentRootNode', args.tree);
-                    if (syncTreePromise) {
-                        mainTreeEventHandler.syncTree(syncTreePromise.args).then(function (syncArgs) {
-                            syncTreePromise.resolve(syncArgs);
-                        });
-                    }
                 });
                 //when a tree node is synced this event will fire, this allows us to set the currentNode
                 mainTreeEventHandler.bind('treeSynced', function (ev, args) {
@@ -5248,10 +5248,8 @@
                         return mainTreeEventHandler.syncTree(args);
                     }
                 }
-                //create a promise and resolve it later
-                syncTreePromise = $q.defer();
-                syncTreePromise.args = args;
-                return syncTreePromise.promise;
+                //couldn't sync
+                return angularHelper.rejectedPromise();
             },
             /**
             Internal method that should ONLY be used by the legacy API wrapper, the legacy API used to
@@ -5388,7 +5386,7 @@
                     if (menuAction.length !== 2) {
                         //if it is not two parts long then this most likely means that it's a legacy action
                         var js = action.metaData['jsAction'].replace('javascript:', '');
-                        //there's not really a different way to achieve this except for eval
+                        //there's not really a different way to acheive this except for eval
                         eval(js);
                     } else {
                         var menuActionService = $injector.get(menuAction[0]);
@@ -5549,13 +5547,12 @@
 	     * hides the currently open dialog
 	     */
             hideDialog: function (showMenu) {
+                setMode('default');
                 if (showMenu) {
                     this.showMenu(undefined, {
                         skipDefault: true,
                         node: appState.getMenuState('currentNode')
                     });
-                } else {
-                    setMode('default');
                 }
             },
             /**
@@ -8857,17 +8854,12 @@
                 }
                 /** The default error callback used if one is not supplied in the opts */
                 function defaultError(data, status, headers, config) {
-                    var err = {
+                    return {
                         //NOTE: the default error message here should never be used based on the above docs!
                         errorMsg: angular.isString(opts) ? opts : 'An error occurred!',
                         data: data,
                         status: status
                     };
-                    // if "opts" is a promise, we set "err.errorMsg" to be that promise
-                    if (typeof opts == 'object' && typeof opts.then == 'function') {
-                        err.errorMsg = opts;
-                    }
-                    return err;
                 }
                 //create the callbacs based on whats been passed in.
                 var callbacks = {
@@ -9271,25 +9263,6 @@
                 lastServerTimeoutSet = new Date();
             }
         }
-        function getMomentLocales(locales, supportedLocales) {
-            var localeUrls = [];
-            var locales = locales.split(',');
-            for (var i = 0; i < locales.length; i++) {
-                var locale = locales[i].toString().toLowerCase();
-                if (locale !== 'en-us') {
-                    if (supportedLocales.indexOf(locale + '.js') > -1) {
-                        localeUrls.push('lib/moment/' + locale + '.js');
-                    }
-                    if (locale.indexOf('-') > -1) {
-                        var majorLocale = locale.split('-')[0] + '.js';
-                        if (supportedLocales.indexOf(majorLocale) > -1) {
-                            localeUrls.push('lib/moment/' + majorLocale);
-                        }
-                    }
-                }
-            }
-            return localeUrls;
-        }
         /** resets all user data, broadcasts the notAuthenticated event and shows the login dialog */
         function userAuthExpired(isLogout) {
             //store the last user id and clear the user
@@ -9311,7 +9284,7 @@
                 userAuthExpired();
             }
         });
-        var services = {
+        return {
             /** Internal method to display the login dialog */
             _showLoginDialog: function () {
                 openLoginDialog();
@@ -9398,33 +9371,41 @@
             },
             /** Loads the Moment.js Locale for the current user. */
             loadMomentLocaleForCurrentUser: function () {
+                function loadLocales(currentUser, supportedLocales) {
+                    var locale = currentUser.locale.toLowerCase();
+                    if (locale !== 'en-us') {
+                        var localeUrls = [];
+                        if (supportedLocales.indexOf(locale + '.js') > -1) {
+                            localeUrls.push('lib/moment/' + locale + '.js');
+                        }
+                        if (locale.indexOf('-') > -1) {
+                            var majorLocale = locale.split('-')[0] + '.js';
+                            if (supportedLocales.indexOf(majorLocale) > -1) {
+                                localeUrls.push('lib/moment/' + majorLocale);
+                            }
+                        }
+                        return assetsService.load(localeUrls, $rootScope);
+                    } else {
+                        //return a noop promise
+                        var deferred = $q.defer();
+                        var promise = deferred.promise;
+                        deferred.resolve(true);
+                        return promise;
+                    }
+                }
                 var promises = {
                     currentUser: this.getCurrentUser(),
                     supportedLocales: javascriptLibraryService.getSupportedLocalesForMoment()
                 };
                 return $q.all(promises).then(function (values) {
-                    return services.loadLocales(values.currentUser.locale, values.supportedLocales);
+                    return loadLocales(values.currentUser, values.supportedLocales);
                 });
-            },
-            /** Loads specific Moment.js Locales. */
-            loadLocales: function (locales, supportedLocales) {
-                var localeUrls = getMomentLocales(locales, supportedLocales);
-                if (localeUrls.length >= 1) {
-                    return assetsService.load(localeUrls, $rootScope);
-                } else {
-                    //return a noop promise
-                    var deferred = $q.defer();
-                    var promise = deferred.promise;
-                    deferred.resolve(true);
-                    return promise;
-                }
             },
             /** Called whenever a server request is made that contains a x-umb-user-seconds response header for which we can update the user's remaining timeout seconds */
             setUserTimeout: function (newTimeout) {
                 setUserTimeoutInternal(newTimeout);
             }
         };
-        return services;
     });
     (function () {
         'use strict';
@@ -9456,12 +9437,6 @@
                     'value': 3,
                     'name': 'Invited',
                     'key': 'Invited',
-                    'color': 'warning'
-                },
-                {
-                    'value': 4,
-                    'name': 'Inactive',
-                    'key': 'Inactive',
                     'color': 'warning'
                 }
             ];
