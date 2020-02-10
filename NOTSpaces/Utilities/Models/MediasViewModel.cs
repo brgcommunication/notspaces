@@ -54,7 +54,9 @@ namespace NOTSpaces.Utilities.Models
 
         public string SlideCounterLabel { get; set; }
 
-        public SliderViewModel(string slidesToShow = null, string slidesToScroll = null, string cssModifiers = null, string slideCounterLabel = null)
+        public string HtmlAttributes { get; set; }
+
+        public SliderViewModel(string slidesToShow = null, string slidesToScroll = null, string cssModifiers = null, string slideCounterLabel = null, string htmlAttributes = null)
         {
             if (!string.IsNullOrEmpty(slidesToShow))
             {
@@ -74,6 +76,11 @@ namespace NOTSpaces.Utilities.Models
             if (!string.IsNullOrEmpty(slideCounterLabel))
             {
                 SlideCounterLabel = slideCounterLabel;
+            }
+
+            if (!string.IsNullOrEmpty(htmlAttributes))
+            {
+                HtmlAttributes = htmlAttributes;
             }
         }
     }

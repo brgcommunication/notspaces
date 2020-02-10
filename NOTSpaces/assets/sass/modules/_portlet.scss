@@ -8,7 +8,7 @@
         flex-direction: column;
 
         .portlet__tab {
-            height: 125px;
+            height: 200px;
             position: relative;
             @include grayscale();
             @include transition(height ease .4s);
@@ -35,6 +35,8 @@
 
         @include mq('tablet') {
             .portlet__tab {
+                height: 350px;
+
                 &.is-active {
                     height: 450px;
 

@@ -15,7 +15,7 @@
         }
         else
         {
-            <div class="slider @(!string.IsNullOrEmpty(Model.SliderConfig.CssModifiers) ? Model.SliderConfig.CssModifiers : null)" data-slider>
+            <div class="slider @(!string.IsNullOrEmpty(Model.SliderConfig.CssModifiers) ? Model.SliderConfig.CssModifiers : null)" data-slider @Html.Raw(Model.SliderConfig.HtmlAttributes)>
 
                 @foreach (var item in Model.Medias.Select((value, i) => new { i, value }))
                 {

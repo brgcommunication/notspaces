@@ -1,13 +1,13 @@
 $(document).ready(function () {
     setTimeout(function () {
         $('[data-loader]').addClass('is-loading');
-    }, 150);
+    }, 75);
 });
 
 $(window).on('load', function () {
     setTimeout(function () {
         $('[data-loader]').addClass('is-loaded');
-    }, 1150);
+    }, 575);
 });
 $(document).ready(function () {
     $('.hamburger').on('click', function () {

@@ -1,6 +1,6 @@
 ﻿var mq = {
     mobile: '767',
-    tablet_wide: '1023'
+    tablet_wide: '1359'
 };
 
 var isMobile,

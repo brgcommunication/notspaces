@@ -12,7 +12,7 @@
         </div>
         <section class="hero hero--large margin--top-lg">
 
-            @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: multimedias.Select(x => x.GetPropertyValue<IPublishedContent>("mediaSource")).ToList(), width: 16, height: 9, cssModifiers: "multimedia--fill-parent", sliderConfig: new SliderViewModel(cssModifiers: "slider--sliding-background slider--counter", slideCounterLabel: Umbraco.GetDictionaryValue("lbl_slider_counter"))))
+            @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: multimedias.Select(x => x.GetPropertyValue<IPublishedContent>("mediaSource")).ToList(), width: 16, height: 9, cssModifiers: "multimedia--fill-parent", sliderConfig: new SliderViewModel(cssModifiers: "slider--sliding-background slider--counter", slideCounterLabel: Umbraco.GetDictionaryValue("lbl_slider_counter"), htmlAttributes: "data-arrows='true'")))
 
         </section>
         <section class="section margin--top-xl">

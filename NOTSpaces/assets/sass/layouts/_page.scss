@@ -119,7 +119,7 @@
                 }
             }
 
-            @include mq('tablet-wide') {
+            @include mq('desktop') {
                 &__mvp {
                     &--niemantsetienne {
                         .employees__letter {

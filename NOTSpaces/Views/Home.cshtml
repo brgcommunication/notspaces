@@ -3,6 +3,7 @@
 @{
     Layout = "Master.cshtml";
     var heroMedias = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("heroMedias").ToList();
+    var heroSlogan = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("heroSlogan");
     var employees = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("employees").ToList();
     var weAreSection = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("weAreDescription").FirstOrDefault();
     var contractSections = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("contractSections");
@@ -19,44 +20,19 @@
         <div class="col col--lg-6 col--no-gutters col--xs-flex">
             @Html.InlineSvg("--background", "background--image")
             <div class="hero__body padding--centered-lg pulled--center">
-                <h2 class="subtitle subtitle--medium subtitle--bold">
-                    @Umbraco.Field("heroTitle")
-                </h2>
-                <div class="paragraph paragraph--medium margin--top-sm">
-                    @Umbraco.Field("heroText")
+                <div class="slider" data-slider>
+                    @foreach (var item in heroSlogan)
+                    {
+                        <div class="slider__slide">
+                            <h2 class="subtitle subtitle--medium subtitle--bold">
+                                @Umbraco.Field(item, "sectionTitle")
+                            </h2>
+                            <div class="paragraph paragraph--medium margin--top-sm">
+                                @Umbraco.Field(item, "sectionText")
+                            </div>
+                        </div>
+                    }
                 </div>
-            </div>
-        </div>
-    </section>
-    <section id="@Umbraco.Field("weAreTitle", casing: RenderFieldCaseType.Lower)" class="section">
-        <div class="container">
-            <div class="hero margin--top-xl">
-                <div class="hero__body">
-                    <h1 class="title title--gradient text--strikethrough background--primary">@Umbraco.Field("weAreTitle", casing: RenderFieldCaseType.Upper)</h1>
-                </div>
-            </div>
-            <div class="row row--no-gutters margin--top-lg employees">
-
-                @foreach (var item in employees)
-                {
-                    <div class="col col--md-4 employees__mvp employees__mvp--@item.GetPropertyValue("mediaTitle").ToString().ToLower().Replace(" ", string.Empty)">
-
-                        @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: new List<IPublishedContent>() { item.GetPropertyValue<IPublishedContent>("mediaSource") }, width: 6, height: 5, cssModifiers: "multimedia--6by5", htmlAttributes: "data-expand='1'"))
-
-                        <figcaption class="multimedia__caption margin--top-sm">
-                            <h4 class="employees__professional-figure sebtitle subtitle--small">@item.GetPropertyValue("mediaSubtitle")</h4>
-                            <h3 class="employees__name paragraph paragraph--small paragraph paragraph--small">@item.GetPropertyValue("mediaTitle")</h3>
-                        </figcaption>
-                        <span class="employees__letter background--primary" data-scroll-magic>
-                            @item.GetPropertyValue("mediaTitle").ToString().ElementAt(0)
-                        </span>
-                    </div>
-                }
-
-            </div>
-            <div class="section__caption margin--top-xl">
-                <h2 class="subtitle subtitle--medium subtitle--bold pulled--center">@Umbraco.Field(weAreSection, "sectionTitle")</h2>
-                <div class="paragraph paragraph--medium paragraph--newspaper margin--top-sm">@Umbraco.Field(weAreSection, "sectionText")</div>
             </div>
         </div>
     </section>
@@ -91,6 +67,38 @@
                 </div>
             }
 
+        </div>
+    </section>
+    <section id="@Umbraco.Field("weAreTitle", casing: RenderFieldCaseType.Lower)" class="section">
+        <div class="container">
+            <div class="hero margin--top-xl">
+                <div class="hero__body">
+                    <h1 class="title title--gradient text--strikethrough background--primary">@Umbraco.Field("weAreTitle", casing: RenderFieldCaseType.Upper)</h1>
+                </div>
+            </div>
+            <div class="row row--no-gutters margin--top-lg employees">
+
+                @foreach (var item in employees)
+                {
+                    <div class="col col--md-4 employees__mvp employees__mvp--@item.GetPropertyValue("mediaTitle").ToString().ToLower().Replace(" ", string.Empty)">
+
+                        @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: new List<IPublishedContent>() { item.GetPropertyValue<IPublishedContent>("mediaSource") }, width: 6, height: 5, cssModifiers: "multimedia--6by5", htmlAttributes: "data-expand='1'"))
+
+                        <figcaption class="multimedia__caption margin--top-sm">
+                            <h4 class="employees__professional-figure sebtitle subtitle--small">@item.GetPropertyValue("mediaSubtitle")</h4>
+                            <h3 class="employees__name paragraph paragraph--small paragraph paragraph--small">@item.GetPropertyValue("mediaTitle")</h3>
+                        </figcaption>
+                        <span class="employees__letter background--primary" data-scroll-magic>
+                            @item.GetPropertyValue("mediaTitle").ToString().ElementAt(0)
+                        </span>
+                    </div>
+                }
+
+            </div>
+            <div class="section__caption margin--top-xl">
+                <h2 class="subtitle subtitle--medium subtitle--bold pulled--center">@Umbraco.Field(weAreSection, "sectionTitle")</h2>
+                <div class="paragraph paragraph--medium paragraph--newspaper margin--top-sm">@Umbraco.Field(weAreSection, "sectionText")</div>
+            </div>
         </div>
     </section>
     <section id="@Umbraco.Field("contractTitle", casing: RenderFieldCaseType.Lower)" class="section">

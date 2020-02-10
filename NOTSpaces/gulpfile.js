@@ -81,9 +81,9 @@ gulp.task('svgsprites', function () {
 
 gulp.task('criticalpathcss', function () {
     const URLs = {
-        'homepage': 'http://localhost:58047',
-        'projects': 'http://localhost:58047/hospitality/',
-        'project': 'http://localhost:58047/hospitality/hotel-adele/'
+        'homepage': 'http://notspaces.azurewebsites.net/',
+        'projects': 'http://notspaces.azurewebsites.net/hospitality/',
+        'project': 'http://notspaces.azurewebsites.net/hospitality/hotel-adele/'
     };
 
     Object.keys(URLs).forEach(function (pageType) {
