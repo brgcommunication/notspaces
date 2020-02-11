@@ -20,7 +20,7 @@
         <div class="col col--lg-6 col--no-gutters col--xs-flex">
             @Html.InlineSvg("--background", "background--image")
             <div class="hero__body padding--centered-lg pulled--center">
-                <div class="slider" data-slider>
+                <div class="slider" data-slider data-dots="true">
                     @foreach (var item in heroSlogan)
                     {
                         <div class="slider__slide">
@@ -37,7 +37,7 @@
         </div>
     </section>
     <section id="@Umbraco.Field("weDoTitle", casing: RenderFieldCaseType.Lower)" class="section">
-        <div class="hero margin--top-xl">
+        <div class="hero margin--top-xxl">
             <div class="hero__body">
                 <h1 class="title title--gradient text--strikethrough background--primary">@Umbraco.Field("weDoTitle", casing: RenderFieldCaseType.Upper)</h1>
             </div>
@@ -71,7 +71,7 @@
     </section>
     <section id="@Umbraco.Field("weAreTitle", casing: RenderFieldCaseType.Lower)" class="section">
         <div class="container">
-            <div class="hero margin--top-xl">
+            <div class="hero margin--top-xxl">
                 <div class="hero__body">
                     <h1 class="title title--gradient text--strikethrough background--primary">@Umbraco.Field("weAreTitle", casing: RenderFieldCaseType.Upper)</h1>
                 </div>
@@ -103,7 +103,7 @@
     </section>
     <section id="@Umbraco.Field("contractTitle", casing: RenderFieldCaseType.Lower)" class="section">
         <div class="container">
-            <div class="hero margin--top-xl">
+            <div class="hero margin--top-xxl">
                 <div class="hero__body">
                     <h1 class="title title--gradient text--strikethrough background--primary">@Umbraco.Field("contractTitle", casing: RenderFieldCaseType.Upper)</h1>
                     <h2 class="subtitle subtitle--medium subtitle--bold pulled--center margin--top-xl">
@@ -114,15 +114,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row row--no-gutters">
+            <div class="paragraph paragraph--medium paragraph--newspaper margin--top-lg">
 
-                @foreach (var item in contractSections)
+                @foreach (var item in contractSections.Take(2))
                 {
-                    <div class="col col--md-6 section__caption margin--top-lg">
-                        <h2 class="subtitle subtitle--bold pulled--left">
+                    <div>
+                        <h2 class="subtitle subtitle--medium subtitle--bold pulled--left">
                             @Umbraco.Field(item, "sectionTitle")
                         </h2>
-                        <div class="paragraph margin--top-sm pulled--left">
+                        <div class="paragraph paragraph--medium margin--top-sm pulled--left">
+                            @Umbraco.Field(item, "sectionText")
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="paragraph paragraph--medium paragraph--newspaper margin--top-lg">
+
+                @foreach (var item in contractSections.Skip(2).Take(2))
+                {
+                    <div>
+                        <h2 class="subtitle subtitle--medium subtitle--bold pulled--left">
+                            @Umbraco.Field(item, "sectionTitle")
+                        </h2>
+                        <div class="paragraph paragraph--medium margin--top-sm pulled--left">
                             @Umbraco.Field(item, "sectionText")
                         </div>
                     </div>
