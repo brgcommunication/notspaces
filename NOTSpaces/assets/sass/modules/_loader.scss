@@ -15,6 +15,10 @@
         &:before {
             @include transform(translate(0,0) translateZ(0));
         }
+
+        .loader__logo {
+            @include fade-in();
+        }
     }
 
     &.is-loaded {
@@ -29,7 +33,7 @@
 
     &.is-disabled {
         @include fade-out();
-        @include transition(all .500s ease-out);
+        @include transition(opacity .1s ease-out, visibility .1s ease-out);
     }
 
     &:before {
@@ -48,6 +52,7 @@
         display: flex;
         height: 80px;
         justify-content: center;
+        @include fade-out();
         @include z-index('inside-content');
     }
 }

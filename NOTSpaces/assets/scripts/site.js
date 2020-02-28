@@ -56,12 +56,13 @@ $(document).ready(function () {
         var slides_to_scroll = $this.data('slides-to-scroll');
         var slide_mode = $this.data('slide-mode');
         var slide_speed = $this.data('slide-speed') || 5000;
+        var hasDots = ($this.data('dots') ? true : false) && $this.find('.slider__slide').length > 1;
 
         $this.slick({
             arrows: $this.data('arrows') ? true : false,
             prevArrow: '<a href="javascript:;" class="slider__arrow slider__arrow--prev"><svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"></path><path d="M0-.5h24v24H0z" fill="none"></path></svg></a>',
             nextArrow: '<a href="javascript:;" class="slider__arrow slider__arrow--next"><svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"></path><path d="M0-.25h24v24H0z" fill="none"></path></svg></a>',
-            dots: $this.data('dots') ? true : false,
+            dots: hasDots,
             dotsClass: 'slider__dots',
             autoplay: true,
             autoplaySpeed: slide_speed,

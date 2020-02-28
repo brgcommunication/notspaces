@@ -15,4 +15,13 @@
         text-align: center;
         width: 100%;
     }
+
+    &__info {
+        @include position(absolute, $top: 1rem, $left: 1rem);
+
+        @include mq('tablet-wide') {
+            left: auto;
+            right: 1rem;
+        }
+    }
 }

@@ -38,6 +38,7 @@
     "outputFileName": "scripts/main.js",
     "inputFiles": [
       "assets/vendor/jquery/jquery-3.3.1.min.js",
+      "assets/vendor/jquery/jquery.cookie.js",
       "assets/vendor/lazysizes/fix-ios-sizes.min.js",
       "assets/vendor/lazysizes/lazysizes.min.js",
       "assets/vendor/lazysizes/ls.bgset.min.js",

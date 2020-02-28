@@ -8,6 +8,8 @@
     var weAreSection = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("weAreDescription").FirstOrDefault();
     var contractSections = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("contractSections");
     var weDoProjects = Model.Site().Children.ToList();
+
+    var config = Model.Site() as HomePage;
 }
 
 <div class="page page--home">
@@ -19,18 +21,24 @@
         </div>
         <div class="col col--lg-6 col--no-gutters col--xs-flex">
             @Html.InlineSvg("--background", "background--image")
+            <div class="hero__info paragraph paragraph--small">
+                <a href="tel:@(config.PhoneNumber)">@(config.PhoneNumber.ToUpper())</a> - <a href="mailto:@(config.EMailAddress.ToUpper())">@(config.EMailAddress.ToUpper())</a>
+            </div>
             <div class="hero__body padding--centered-lg pulled--center">
                 <div class="slider" data-slider data-dots="true">
-                    @foreach (var item in heroSlogan)
+                    @if (heroSlogan != null)
                     {
-                        <div class="slider__slide">
-                            <h2 class="subtitle subtitle--medium subtitle--bold">
-                                @Umbraco.Field(item, "sectionTitle")
-                            </h2>
-                            <div class="paragraph paragraph--medium margin--top-sm">
-                                @Umbraco.Field(item, "sectionText")
+                        foreach (var item in heroSlogan)
+                        {
+                            <div class="slider__slide">
+                                <h2 class="subtitle subtitle--medium subtitle--bold">
+                                    @Umbraco.Field(item, "sectionTitle")
+                                </h2>
+                                <div class="paragraph paragraph--medium margin--top-sm">
+                                    @Umbraco.Field(item, "sectionText")
+                                </div>
                             </div>
-                        </div>
+                        }
                     }
                 </div>
             </div>
@@ -54,8 +62,13 @@
                         <div class="card__header paragraph">
                             .0@(item.i + 1)
                         </div>
-                        <div class="card__content paragraph paragraph--medium">
-                            @Umbraco.Field(item.value, "categoryName")
+                        <div class="card__content ">
+                            <div class="paragraph paragraph--medium">
+                                @Umbraco.Field(item.value, "categoryName")
+                            </div>
+                            <div class="paragraph paragraph--small">
+                                @Umbraco.Field(item.value, "categoryDescription")
+                            </div>
                         </div>
                         <div class="card__footer paragraph">
                             <div class="pulled--right">

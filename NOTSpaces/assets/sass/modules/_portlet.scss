@@ -27,6 +27,11 @@
                 @include fade-out();
                 @include transition(opacity .4s ease-out, visibility .4s ease-out);
 
+                &__content {
+                    padding: 0 2rem;
+                    text-align: center;
+                }
+
                 .paragraph {
                     color: $white;
                 }
