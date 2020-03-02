@@ -1,6 +1,8 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Master.cshtml";
+    var cover = Model.Content.GetPropertyValue<IPublishedContent>("projectCover");
+    var buildingPlan = Model.Content.GetPropertyValue<IPublishedContent>("projectBuildingPlan");
     var multimedias = Model.Content.GetPropertyValue<IEnumerable<IPublishedContent>>("projectMultimedias").ToList();
     var projects = Model.Content.Site().FirstChild(Model.Content.Parent.Name.ToLower()).Children().Where(x => x.IsVisible() && x.Url != Model.Content.Url);
 }
@@ -10,9 +12,9 @@
         <div class="hero margin--top-md">
             <div class="text--inline"><a class="subtitle subtitle--bold pulled--left" href="@Model.Content.Parent.Url">@Model.Content.Parent.GetPropertyValue("categoryName")</a><span class="decoration decoration--forwardslash"></span><h3 class="paragraph paragraph--medium">@Umbraco.Field("projectName")</h3></div>
         </div>
-        <section class="hero hero--large margin--top-lg">
+        <section class="margin--top-lg">
 
-            @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: multimedias.Select(x => x.GetPropertyValue<IPublishedContent>("mediaSource")).ToList(), width: 16, height: 9, cssModifiers: "multimedia--fill-parent", sliderConfig: new SliderViewModel(cssModifiers: "slider--sliding-background slider--counter", slideCounterLabel: Umbraco.GetDictionaryValue("lbl_slider_counter"), htmlAttributes: "data-arrows='true'")))
+            @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: new List<IPublishedContent>() { cover }, width: 16, height: 9, cssModifiers: "multimedia--16by9"))
 
         </section>
         <section class="section margin--top-xl">
@@ -24,21 +26,52 @@
             </div>
         </section>
         <section class="margin--top-lg">
+
+            @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: new List<IPublishedContent>() { buildingPlan }, width: 16, height: 9, cssModifiers: "multimedia--16by9"))
+
+        </section>
+        <section class="margin--top-lg">
             <div class="row">
-
-                @foreach (var item in projects)
+                @if (multimedias != null && multimedias.Any())
                 {
-                    var projectMultimedias = item.GetPropertyValue<IEnumerable<IPublishedContent>>("projectMultimedias").FirstOrDefault();
-
-                    <a class="col col--md-6" href="@item.Url">
-
-                        @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: new List<IPublishedContent>() { projectMultimedias.GetPropertyValue<IPublishedContent>("mediaSource") }, width: 4, height: 3, cssModifiers: "multimedia--4by3 multimedia--hover-effect"))
-
-                        <figcaption class="subtitle subtitle--bold margin--top-md pulled--center">@Umbraco.Field(item, "projectName")</figcaption>
-                    </a>
+                    foreach (var item in multimedias)
+                    {
+                        var source = item.GetPropertyValue<IPublishedContent>("mediaSource");
+                        <div class="col col--xs-6 col--md-4">
+                            <a href="@source.Url" data-fancybox="gallery">
+                                <div class="multimedia multimedia--1by1 multimedia--hover-effect">
+                                    <figure class="multimedia__source lazyload" data-bgset="@(source.GetSrcSet(1, 1))"></figure>
+                                    <figcaption class="multimedia__caption">+</figcaption>
+                                </div>
+                            </a>
+                        </div>
+                    }
                 }
+            </div>
+        </section>
+        <section class="margin--top-xl">
+            <h2 class="subtitle subtitle--medium subtitle--bold pulled--center">@Umbraco.GetDictionaryValue("lbl_other_projects")</h2>
+            <div class="margin--top-md">
+                <div class="row">
+                    @foreach (var item in projects)
+                    {
+                        var projectMultimedias = item.GetPropertyValue<IEnumerable<IPublishedContent>>("projectMultimedias").FirstOrDefault();
 
+                        <a class="col col--md-6" href="@item.Url">
+
+                            @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: new List<IPublishedContent>() { projectMultimedias.GetPropertyValue<IPublishedContent>("mediaSource") }, width: 4, height: 3, cssModifiers: "multimedia--4by3 multimedia--zoom"))
+
+                            <figcaption class="subtitle subtitle--bold margin--top-md pulled--center">@Umbraco.Field(item, "projectName")</figcaption>
+                        </a>
+                    }
+
+                </div>
             </div>
         </section>
     </div>
 </div>
+
+@section scripts {
+    loadCSS('/assets/vendor/fancybox/jquery.fancybox.min.css');
+    loadJS('/assets/vendor/fancybox/jquery.fancybox.min.js', function () { $('[data-fancybox="gallery"]').fancybox({ infobar: false, }); });
+}

@@ -23,11 +23,11 @@
 
     &.is-loaded {
         @include fade-out();
-        @include transition(all .150s cubic-bezier(.785,.135,.15,.86) .950s);
+        @include transition(all .3s cubic-bezier(.785,.135,.15,.86) 1.9s);
 
         &:before {
             @include transform(translate(100%,0) translateZ(0));
-            @include transition(all .250s cubic-bezier(.785,.135,.15,.86) .650s);
+            @include transition(all .5s cubic-bezier(.785,.135,.15,.86) 1.3s);
         }
     }
 
@@ -43,7 +43,7 @@
         width: 105vw;
         @include position(fixed, 0, 0, 0, 0);
         @include transform(translate(-100%,0) translateZ(0));
-        @include transition(transform .250s cubic-bezier(.785,.135,.15,.86) .250s);
+        @include transition(transform .5s cubic-bezier(.785,.135,.15,.86) .5s);
         @include z-index('below-content');
     }
 

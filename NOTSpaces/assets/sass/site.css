@@ -1394,22 +1394,22 @@ img:not([src]) {
   .loader.is-loaded {
     opacity: 0;
     visibility: hidden;
-    -webkit-transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.95s;
-    -moz-transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.95s;
-    -ms-transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.95s;
-    -o-transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.95s;
-    transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.95s; }
+    -webkit-transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.9s;
+    -moz-transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.9s;
+    -ms-transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.9s;
+    -o-transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.9s;
+    transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.9s; }
     .loader.is-loaded:before {
       -webkit-transform: translate(100%, 0) translateZ(0);
       -moz-transform: translate(100%, 0) translateZ(0);
       -ms-transform: translate(100%, 0) translateZ(0);
       -o-transform: translate(100%, 0) translateZ(0);
       transform: translate(100%, 0) translateZ(0);
-      -webkit-transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.65s;
-      -moz-transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.65s;
-      -ms-transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.65s;
-      -o-transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.65s;
-      transition: all 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.65s; }
+      -webkit-transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.3s;
+      -moz-transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.3s;
+      -ms-transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.3s;
+      -o-transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.3s;
+      transition: all 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 1.3s; }
   .loader.is-disabled {
     opacity: 0;
     visibility: hidden;
@@ -1433,11 +1433,11 @@ img:not([src]) {
     -ms-transform: translate(-100%, 0) translateZ(0);
     -o-transform: translate(-100%, 0) translateZ(0);
     transform: translate(-100%, 0) translateZ(0);
-    -webkit-transition: -webkit-transform 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.25s;
-    -moz-transition: -moz-transform 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.25s;
-    -ms-transition: -ms-transform 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.25s;
-    -o-transition: -o-transform 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.25s;
-    transition: transform 0.25s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.25s;
+    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
+    -moz-transition: -moz-transform 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
+    -ms-transition: -ms-transform 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
+    -o-transition: -o-transform 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
+    transition: transform 0.5s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
     z-index: -1; }
   .loader__logo {
     align-items: center;
@@ -1914,28 +1914,40 @@ img:not([src]) {
       position: fixed !important;
       width: 100vw;
       z-index: -1; }
-  .multimedia--hover-effect {
+  .multimedia--zoom {
     overflow: hidden; }
-    .multimedia--hover-effect:hover .multimedia__source {
+    .multimedia--zoom:hover .multimedia__source {
       -webkit-transform: scale(1.05);
       -moz-transform: scale(1.05);
       -ms-transform: scale(1.05);
       -o-transform: scale(1.05);
       transform: scale(1.05); }
-    .multimedia--hover-effect .multimedia__source {
+    .multimedia--zoom .multimedia__source {
       -webkit-transition: -webkit-transform 0.4s ease-out;
       -moz-transition: -moz-transform 0.4s ease-out;
       -ms-transition: -ms-transform 0.4s ease-out;
       -o-transition: -o-transform 0.4s ease-out;
       transition: transform 0.4s ease-out; }
-    .multimedia--hover-effect .multimedia__caption {
-      left: 50%;
-      -webkit-transform: translate(-50%, 0);
-      -moz-transform: translate(-50%, 0);
-      -ms-transform: translate(-50%, 0);
-      -o-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
-      z-index: 1000; }
+  .multimedia--hover-effect:hover .multimedia__caption {
+    opacity: 1;
+    visibility: visible; }
+  .multimedia--hover-effect .multimedia__caption {
+    background: rgba(46, 90, 161, 0.7);
+    color: #FFFFFF;
+    font-size: 3rem;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    -moz-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    -ms-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    z-index: 1000; }
   .multimedia__source {
     background-position: center center;
     background-repeat: no-repeat;
@@ -1955,23 +1967,6 @@ img:not([src]) {
     display: flex;
     flex-direction: column;
     justify-content: center; }
-  .multimedia .multimedia__caption {
-    bottom: 10%;
-    left: 0;
-    position: absolute;
-    right: 0; }
-  @media only screen and (min-width: 1024px) {
-    .multimedia--hover-effect:hover .multimedia__caption {
-      opacity: 1;
-      visibility: visible; }
-    .multimedia--hover-effect .multimedia__caption {
-      opacity: 0;
-      visibility: hidden;
-      -webkit-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
-      -moz-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
-      -ms-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
-      -o-transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
-      transition: opacity 0.3s ease-out, visibility 0.3s ease-out; } }
 
 /* Slider */
 .slick-slider {

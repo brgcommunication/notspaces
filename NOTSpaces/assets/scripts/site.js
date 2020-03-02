@@ -1,13 +1,17 @@
-﻿$(document).on('lazyloaded', function (e) {
+﻿$(document).on('lazyloaded', function (e)
+{
     var self = e.target;
 
-    if ($(self).parents('.employees').length > 0) {
+    if ($(self).parents('.employees').length > 0)
+    {
 
         $(self).parents('.employees').find('.employees__letter').addClass('is-visible');
 
-        $(window).resize(function () {
+        $(window).resize(function ()
+        {
 
-            if (tween && scene) {
+            if (tween && scene)
+            {
                 scene.destroy(true);
                 TweenMax.killAll();
                 TweenMax.set((elements, { clearProps: "all" }));
@@ -19,15 +23,18 @@
             var offset;
             var duration;
 
-            if (isMobile) {
+            if (isMobile)
+            {
                 top = 130;
                 offset = -150;
                 duration = 500;
-            } else if (isTablet) {
+            } else if (isTablet)
+            {
                 top = 250;
                 offset = -150;
                 duration = 500;
-            } else {
+            } else
+            {
                 top = 300;
                 offset = -300;
                 duration = 1000;
@@ -44,12 +51,14 @@
 
 });
 
-$(document).ready(function () {
+$(document).ready(function ()
+{
     $('[data-navbar]').navbar();
 
     $('[data-portlet="tabs"]').portlet();
 
-    $('[data-slider]').each(function () {
+    $('[data-slider]').each(function ()
+    {
         var $this = $(this);
 
         var slides_to_show = $this.data('slides-to-show');
@@ -105,8 +114,10 @@ $(document).ready(function () {
         });
     });
 
-    $('[data-anchor]').click(function (event) {
-        if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+    $('[data-anchor]').click(function (event)
+    {
+        if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname)
+        {
             var target = $(this.hash);
             target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
 
@@ -114,23 +125,28 @@ $(document).ready(function () {
             $('[data-navbar]').find('.navbar__navigation').removeClass('is-active');
             $('.hamburger').removeClass('is-active');
 
-            if (target.length) {
+            if (target.length)
+            {
                 event.preventDefault();
 
                 $('html, body').animate({
                     scrollTop: target.offset().top
-                }, 1000, function () {
-                    var $target = $(target);
-                    $target.focus();
-
-                    if ($target.is(":focus")) {
-                        return false;
-                    } else {
-                        $target.attr('tabindex', '-1');
+                }, 1000, function ()
+                    {
+                        var $target = $(target);
                         $target.focus();
-                    }
-                });
-            } else {
+
+                        if ($target.is(":focus"))
+                        {
+                            return false;
+                        } else
+                        {
+                            $target.attr('tabindex', '-1');
+                            $target.focus();
+                        }
+                    });
+            } else
+            {
                 setTimeout(function ()
                 {
                     document.location.href = "/" + document.location.hash;
@@ -140,11 +156,13 @@ $(document).ready(function () {
         }
     });
 
-    $(window).resize(function () {
+    $(window).resize(function ()
+    {
         initFluidMedias();
     }).resize();
 });
 
-$(window).on('load', function () {
+$(window).on('load', function ()
+{
 
 });

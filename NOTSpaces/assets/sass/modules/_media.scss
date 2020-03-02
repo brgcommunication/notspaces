@@ -121,7 +121,7 @@
         }
     }
 
-    &--hover-effect {
+    &--zoom {
         overflow: hidden;
 
         &:hover {
@@ -133,9 +133,22 @@
         .multimedia__source {
             @include transition(transform .4s ease-out);
         }
+    }
+
+    &--hover-effect {
+        &:hover {
+            .multimedia__caption {
+                @include fade-in();
+            }
+        }
 
         .multimedia__caption {
-            @include centerer($vertical: false);
+            background: rgba($color-primary, .7);
+            color: $white;
+            font-size: 3rem;
+            @include position(absolute, 0, 0, 0, 0);
+            @include fade-out();
+            @include transition(opacity .3s ease-out, visibility .3s ease-out);
             @include z-index('multimedia');
         }
     }
@@ -153,24 +166,5 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-    }
-
-    .multimedia__caption {
-        @include position(absolute, $bottom: 10%, $left: 0, $right: 0);
-    }
-
-    @include mq('tablet-wide') {
-        &--hover-effect {
-            &:hover {
-                .multimedia__caption {
-                    @include fade-in();
-                }
-            }
-
-            .multimedia__caption {
-                @include fade-out();
-                @include transition(opacity .3s ease-out, visibility .3s ease-out);
-            }
-        }
     }
 }

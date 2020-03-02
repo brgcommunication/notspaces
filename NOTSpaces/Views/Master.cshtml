@@ -38,6 +38,7 @@
         var settings = @Html.Raw(Json.Encode(settings));
         loadCSS(settings.Stylesheet);
         loadJS(settings.JavaScript);
+        @RenderSection("scripts", false)
     </script>
 </body>
 </html>

@@ -276,6 +276,10 @@
     <Content Include="assets\scripts\utilities\eventHandlers.js" />
     <Content Include="assets\scripts\utilities\functions.js" />
     <Content Include="assets\scripts\utilities\variables.js" />
+    <Content Include="assets\vendor\fancybox\jquery.fancybox.css" />
+    <Content Include="assets\vendor\fancybox\jquery.fancybox.js" />
+    <Content Include="assets\vendor\fancybox\jquery.fancybox.min.css" />
+    <Content Include="assets\vendor\fancybox\jquery.fancybox.min.js" />
     <Content Include="assets\vendor\gsap\animation.gsap.js" />
     <Content Include="assets\vendor\gsap\animation.gsap.min.js" />
     <Content Include="assets\vendor\gsap\ScrollMagic.min.js" />

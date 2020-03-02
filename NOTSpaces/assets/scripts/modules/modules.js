@@ -14,7 +14,7 @@ $(document).ready(function ()
         setTimeout(function ()
         {
             $('[data-loader]').addClass('is-loading');
-        }, 75);
+        }, 150);
     }
 });
 
@@ -25,7 +25,7 @@ $(window).on('load', function ()
         setTimeout(function ()
         {
             $('[data-loader]').addClass('is-loaded');
-        }, 575);
+        }, 1150);
 
         $.cookie('wearenot_hasbeenvisited', true);
     }
