@@ -97,10 +97,10 @@
 
                         @Html.Partial("~/views/partials/medias/medias.cshtml", new MediasViewModel(medias: new List<IPublishedContent>() { item.GetPropertyValue<IPublishedContent>("mediaSource") }, width: 6, height: 5, cssModifiers: "multimedia--6by5", htmlAttributes: "data-expand='1'"))
 
-                        <figcaption class="multimedia__caption margin--top-sm">
+                        @*<figcaption class="multimedia__caption margin--top-sm">
                             <h4 class="employees__professional-figure sebtitle subtitle--small">@item.GetPropertyValue("mediaSubtitle")</h4>
                             <h3 class="employees__name paragraph paragraph--small paragraph paragraph--small">@item.GetPropertyValue("mediaTitle")</h3>
-                        </figcaption>
+                        </figcaption>*@
                         <span class="employees__letter background--primary" data-scroll-magic>
                             @item.GetPropertyValue("mediaTitle").ToString().ElementAt(0)
                         </span>
